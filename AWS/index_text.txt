@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Kenventory Dashboard</title>
+  <style>
+    h2 {
+      margin-top: 2rem;
+      color: #555;
+    }
+    body { font-family: sans-serif; padding: 2rem; background: #f9f9f9; }
+    h1 { color: #333; }
+    #status { margin-bottom: 1rem; }
+    .sensor {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      margin-bottom: 0.5rem;
+      background: #fff;
+      position: relative;
+    }
+    .sensor.active { border-left: 5px solid green; }
+    .sensor.inactive { border-left: 5px solid red; }
+    .timestamp {
+      position: absolute;
+      top: 0.3rem;
+      right: 1rem;
+      font-size: 0.8rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>Kenventory Sensor Dashboard</h1>
+  <div id="status">Connecting to HiveMQ...</div>
+  <div id="sensor-list"></div>
+
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <script>
+    let config = { devices: {}, sensors: {} };
+    let configReady = false;
+
+    const broker = "wss://[broker link]:8884/mqtt";
+    const username = "[username]";
+    const password = "[password]";
+    const topic = "kenventory/+/sensor/+";
+
+    const sensors = {};
+    const lastSeen = {};
+    const listEl = document.getElementById("sensor-list");
+    const statusEl = document.getElementById("status");
+
+    const client = mqtt.connect(broker, { username, password, protocol: "wss" });
+
+    client.on("connect", () => {
+      statusEl.textContent = "✅ Connected to HiveMQ";
+      const waitForConfig = setInterval(() => {
+        if (configReady) {
+          clearInterval(waitForConfig);
+          client.subscribe(topic);
+          console.log("📡 Subscribed after config ready");
+        }
+      }, 100);
+    });
+
+    fetch("config.json?v=" + new Date().getTime())
+      .then(response => response.json())
+      .then(data => {
+        config.devices = Object.fromEntries(
+          Object.entries(data.devices).map(([mac, entry]) => [mac.trim().toUpperCase(), entry])
+        );
+        configReady = true;
+        console.log("✅ Normalized config:", config.devices);
+      })
+      .catch(error => {
+        console.error("❌ Failed to load config.json:", error);
+      });
+
+    client.on("message", (topic, message) => {
+      const parts = topic.split("/");
+      if (parts.length < 4) return;
+
+      const rawMac = parts[1];
+      const device = rawMac.trim().toUpperCase();
+      const sensorNum = parts[3];
+      const value = message.toString().trim();
+      const timestamp = new Date();
+
+      const matchedDevice = config.devices[device];
+      console.log("📦 Normalized MAC:", device);
+      console.log("🔍 Found in config?", matchedDevice ? "✅ Yes" : "❌ No");
+
+      const deviceLabel = matchedDevice?.name || device;
+      const sensorLabel = matchedDevice?.sensors?.[sensorNum] || `Sensor ${sensorNum}`;
+      const containerId = `device-${device}`;
+
+      lastSeen[device] = timestamp;
+
+      let container = document.getElementById(containerId);
+      if (!container) {
+        container = document.createElement("div");
+        container.id = containerId;
+        container.style.marginTop = "2rem";
+
+        const heading = document.createElement("h2");
+        heading.textContent = deviceLabel;
+        container.appendChild(heading);
+
+        listEl.appendChild(container);
+      }
+
+      const key = `sensor-${device}-${sensorNum}`;
+      if (!sensors[key]) {
+        const el = document.createElement("div");
+        el.classList.add("sensor");
+        el.id = key;
+        el.innerHTML = `
+          <strong>${sensorLabel}</strong><br>
+          <span class="value">${value}</span>
+          <div class="timestamp">${formatTime(timestamp)}</div>
+        `;
+        container.appendChild(el);
+        sensors[key] = el;
+      } else {
+        const el = sensors[key];
+        el.querySelector(".value").textContent = value;
+        el.querySelector(".timestamp").textContent = formatTime(timestamp);
+      }
+
+      updateSensorStatus(key, value);
+    });
+
+    function formatTime(date) {
+      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+
+    function updateSensorStatus(key, value) {
+      const el = sensors[key];
+      const normalized = value.toLowerCase();
+      if (normalized.includes("detected") && !normalized.includes("not")) {
+        el.className = "sensor active";
+      } else {
+        el.className = "sensor inactive";
+      }
+    }
+
+    setInterval(() => {
+      const now = new Date();
+      for (const device in lastSeen) {
+        const diff = (now - lastSeen[device]) / 1000;
+        const deviceKeys = Object.keys(sensors).filter(k => k.includes(device));
+        deviceKeys.forEach(key => {
+          if (diff > 30) {
+            const el = sensors[key];
+            el.className = "sensor inactive";
+            el.querySelector(".value").textContent = "Offline";
+          }
+        });
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
+
+        sensors[key] = el;
+      } else {
+        const el = sensors[key];
+        el.querySelector(".value").textContent = value;
+        el.querySelector(".timestamp").textContent = formatTime(timestamp);
+      }
+
+      updateSensorStatus(key, value);
+    });
+
+    function formatTime(date) {
+      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+
+    function updateSensorStatus(key, value) {
+      const el = sensors[key];
+      const normalized = value.toLowerCase();
+      if (normalized.includes("detected") && !normalized.includes("not")) {
+        el.className = "sensor active";
+      } else {
+        el.className = "sensor inactive";
+      }
+    }
+
+    setInterval(() => {
+      const now = new Date();
+      for (const device in lastSeen) {
+        const diff = (now - lastSeen[device]) / 1000;
+        const deviceKeys = Object.keys(sensors).filter(k => k.includes(device));
+        deviceKeys.forEach(key => {
+          if (diff > 30) {
+            const el = sensors[key];
+            el.className = "sensor inactive";
+            el.querySelector(".value").textContent = "Offline";
+          }
+        });
+      }
+    }, 1000);
+  </script>
+</body>
+</html>

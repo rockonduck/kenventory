@@ -1,0 +1,31 @@
+{
+  "devices": {
+    "F4650B470D74": {
+      "name": "Casey's Guild Hall – Michigan Branch",
+      "sensors": {
+        "1": "Orbit Repair Kit",
+        "2": "Grease(Auto Lube)",
+        "3": "Battery(Auto Lube)",
+        "4": "EP2 Grease(Mobile 1)"
+      }
+    },
+    "78421C6D7060": {
+      "name": "Team Biscuit – Pittsburgh Branch",
+      "sensors": {
+        "1": "Orbit Repair Kit",
+        "2": "Grease(Auto Lube)",
+        "3": "Battery(Auto Lube)",
+        "4": "EP2 Grease(Mobile 1)"
+      }
+    },
+    "78421C6C2394": {
+      "name": "Test System Pitts",
+      "sensors": {
+        "1": "Orbit Repair Kit",
+        "2": "Grease(Auto Lube)",
+        "3": "Battery(Auto Lube)",
+        "4": "EP2 Grease(Mobile 1)"
+      }
+    }
+  }
+}
