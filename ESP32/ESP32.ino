@@ -3,17 +3,25 @@
 
 
 // Pin assignments
-const int SENSOR1_PIN = 27;
-const int SENSOR2_PIN = 25;
-const int SENSOR3_PIN = 32;
-const int SENSOR4_PIN = 34;
+const int SENSOR1_PIN = 14;
+const int SENSOR2_PIN = 27;
+const int SENSOR3_PIN = 26;
+const int SENSOR4_PIN = 25;
+const int SENSOR5_PIN = 33;
+const int SENSOR6_PIN = 32;
+const int SENSOR7_PIN = 35;
+const int SENSOR8_PIN = 22;
+const int SENSOR9_PIN = 23;
+const int SENSOR10_PIN = 21;
+const int SENSOR11_PIN = 19;
+
 
 // MAC address string
 char macStr[18];
 
 // Timing control
 unsigned long previousMillis = 0;
-const unsigned long interval = 2000; // 2 seconds
+const unsigned long interval = 5000; // 2 seconds
 
 //Watchdog Function
 esp_task_wdt_config_t wdt_config = {
@@ -40,6 +48,14 @@ esp_task_wdt_add(NULL);  // Watch the current task (loop)
   pinMode(SENSOR2_PIN, INPUT);
   pinMode(SENSOR3_PIN, INPUT);
   pinMode(SENSOR4_PIN, INPUT);
+  pinMode(SENSOR5_PIN, INPUT);
+  pinMode(SENSOR6_PIN, INPUT);
+  pinMode(SENSOR7_PIN, INPUT);
+  pinMode(SENSOR8_PIN, INPUT);
+  pinMode(SENSOR9_PIN, INPUT);
+  pinMode(SENSOR10_PIN, INPUT);
+  pinMode(SENSOR11_PIN, INPUT);
+  
 
   // Get MAC and format for topic use
   uint8_t mac[6];
@@ -69,18 +85,54 @@ esp_task_wdt_reset();  // Feed the watchdog
     int s2 = digitalRead(SENSOR2_PIN);
     int s3 = digitalRead(SENSOR3_PIN);
     int s4 = digitalRead(SENSOR4_PIN);
+    int s5 = digitalRead(SENSOR5_PIN);
+    int s6 = digitalRead(SENSOR6_PIN);
+    int s7 = digitalRead(SENSOR7_PIN);
+    int s8 = digitalRead(SENSOR8_PIN);    
+    int s9 = digitalRead(SENSOR9_PIN);
+    int s10 = digitalRead(SENSOR10_PIN);
+    int s11 = digitalRead(SENSOR11_PIN);
 
     // Determine payloads
-    String p1 = (s1 == LOW) ? "Detected" : "Not Detected";
-    String p2 = (s2 == LOW) ? "Detected" : "Not Detected";
+    String p1 = (s1 == HIGH) ? "Detected" : "Not Detected";
+    String p2 = (s2 == HIGH) ? "Detected" : "Not Detected";
     String p3 = (s3 == LOW) ? "Detected" : "Not Detected";
     String p4 = (s4 == LOW) ? "Detected" : "Not Detected";
+    String p5 = (s5 == LOW) ? "Detected" : "Not Detected";
+    String p6 = (s6 == LOW) ? "Detected" : "Not Detected";
+    String p7 = (s7 == LOW) ? "Detected" : "Not Detected";
+    String p8 = (s8 == HIGH) ? "Detected" : "Not Detected";
+    String p9 = (s9 == HIGH) ? "Detected" : "Not Detected";
+    String p10 = (s10 == LOW) ? "Detected" : "Not Detected";
+    String p11 = (s11 == LOW) ? "Detected" : "Not Detected";
+ 
 
     // Build and print topic/payload lines
+    // Added a delay to help keep organization in order at the MQTT Server
     Serial.println("kenventory/" + String(macStr) + "/sensor/1 = " + p1);
+    delay(100);
     Serial.println("kenventory/" + String(macStr) + "/sensor/2 = " + p2);
+    delay(100);
     Serial.println("kenventory/" + String(macStr) + "/sensor/3 = " + p3);
+    delay(100);
     Serial.println("kenventory/" + String(macStr) + "/sensor/4 = " + p4);
+    delay(100);
+    Serial.println("kenventory/" + String(macStr) + "/sensor/5 = " + p5);
+    delay(100);
+    Serial.println("kenventory/" + String(macStr) + "/sensor/6 = " + p6);
+    delay(100);
+    Serial.println("kenventory/" + String(macStr) + "/sensor/7 = " + p7);
+    delay(100);
+    Serial.println("kenventory/" + String(macStr) + "/sensor/8 = " + p8);
+    delay(100);
+    Serial.println("kenventory/" + String(macStr) + "/sensor/9 = " + p9);
+    delay(100);
+    Serial.println("kenventory/" + String(macStr) + "/sensor/10 = " + p10);
+    delay(100);
+    Serial.println("kenventory/" + String(macStr) + "/sensor/11 = " + p11);
+
+
+
 
 
 /*
