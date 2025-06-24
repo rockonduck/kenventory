@@ -1,30 +1,36 @@
 {
   "devices": {
-    "F4650B470D74": {
-      "name": "Casey's Guild Hall – Michigan Branch",
-      "sensors": {
-        "1": "Orbit Repair Kit",
-        "2": "Grease(Auto Lube)",
-        "3": "Battery(Auto Lube)",
-        "4": "EP2 Grease(Mobile 1)"
-      }
-    },
-    "78421C6D7060": {
-      "name": "Team Biscuit – Pittsburgh Branch",
-      "sensors": {
-        "1": "Orbit Repair Kit",
-        "2": "Grease(Auto Lube)",
-        "3": "Battery(Auto Lube)",
-        "4": "EP2 Grease(Mobile 1)"
-      }
-    },
     "78421C6C2394": {
-      "name": "Test System Pitts",
+      "name": "Kenventory V5",
       "sensors": {
-        "1": "Orbit Repair Kit",
-        "2": "Grease(Auto Lube)",
-        "3": "Battery(Auto Lube)",
-        "4": "EP2 Grease(Mobile 1)"
+        "1": "Shroud 1",
+        "2": "Shroud 1 w/ Vacuum Connect",
+        "3": "Rail Grease(REDEX FP1-125 Cartridge)",
+        "4": "Battery(REDEX FlexxPump 125 Battery Alkaline)",
+        "5": "Orbit Repair/Arbor",
+        "6": "Orbit Repair/Arbor",
+        "7": "Orbit Repair/Arbor",
+        "8": "Shroud 2",
+        "9": "Shroud 2 w/ Vacuum Connect",
+        "10": "Grease(Mobilux EP2)",
+        "11": "Grease(Mobilux EP2)"
+      }
+    },
+
+    "[mac-id]": {
+      "name": "[location name]",
+      "sensors": {
+        "1": "Shroud 1",
+        "2": "Shroud 1 w/ Vacuum Connect",
+        "3": "Rail Grease(REDEX FP1-125 Cartridge)",
+        "4": "Battery(REDEX FlexxPump 125 Battery Alkaline)",
+        "5": "Orbit Repair/Arbor",
+        "6": "Orbit Repair/Arbor",
+        "7": "Orbit Repair/Arbor",
+        "8": "Shroud 2",
+        "9": "Shroud 2 w/ Vacuum Connect",
+        "10": "Grease(Mobilux EP2)",
+        "11": "Grease(Mobilux EP2)"
       }
     }
   }
