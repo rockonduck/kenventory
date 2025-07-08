@@ -1,7 +1,7 @@
 {
   "devices": {
     "78421C6C2394": {
-      "name": "Kenventory V5",
+      "name": "Ken's Prototype",
       "sensors": {
         "1": "Shroud 1",
         "2": "Shroud 1 w/ Vacuum Connect",
@@ -18,7 +18,7 @@
     },
 
     "[mac-id]": {
-      "name": "[location name]",
+      "name": "[Location Template]",
       "sensors": {
         "1": "Shroud 1",
         "2": "Shroud 1 w/ Vacuum Connect",

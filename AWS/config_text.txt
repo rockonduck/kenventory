@@ -1,43 +1,36 @@
 {
   "devices": {
-    "F4650B470D74": {
-      "name": "Casey's Guild Hall - Michigan Branch",
+    "78421C6C2394": {
+      "name": "Ken's Prototype",
       "sensors": {
-        "1": "Orbit Repair Kit",
-        "2": "Grease(Auto Lube)",
-        "3": "Battery(Auto Lube)",
-        "4": "EP2 Grease(Mobile 1)"
+        "1": "Shroud 1",
+        "2": "Shroud 1 w/ Vacuum Connect",
+        "3": "Rail Grease(REDEX FP1-125 Cartridge)",
+        "4": "Battery(REDEX FlexxPump 125 Battery Alkaline)",
+        "5": "Orbit Repair/Arbor",
+        "6": "Orbit Repair/Arbor",
+        "7": "Orbit Repair/Arbor",
+        "8": "Shroud 2",
+        "9": "Shroud 2 w/ Vacuum Connect",
+        "10": "Grease(Mobilux EP2)",
+        "11": "Grease(Mobilux EP2)"
       }
     },
 
-
     "[mac-id]": {
-      "name": "[location name]",
+      "name": "[Location Template]",
       "sensors": {
-        "1": "[inventory]",
-        "2": "[inventory]",
-        "3": "[inventory]",
-        "4": "[inventory]"
-      }
-    },
-
-    "78421C6C23945": {
-      "name": "Team Biscuit - Pittsburgh Branch",
-      "sensors": {
-        "1": "Orbit Repair Kit",
-        "2": "Grease(Auto Lube)",
-        "3": "Battery(Auto Lube)",
-        "4": "EP2 Grease(Mobile 1)"
-      }
-    }
-
-    "[mac-id]": {
-      "name": "[location name]",
-      "sensors": {
-        "1": "Orbit Repair Kit",
-        "2": "Grease(Auto Lube)",
-        "3": "Battery(Auto Lube)",
-        "4": "EP2 Grease(Mobile 1)"
+        "1": "Shroud 1",
+        "2": "Shroud 1 w/ Vacuum Connect",
+        "3": "Rail Grease(REDEX FP1-125 Cartridge)",
+        "4": "Battery(REDEX FlexxPump 125 Battery Alkaline)",
+        "5": "Orbit Repair/Arbor",
+        "6": "Orbit Repair/Arbor",
+        "7": "Orbit Repair/Arbor",
+        "8": "Shroud 2",
+        "9": "Shroud 2 w/ Vacuum Connect",
+        "10": "Grease(Mobilux EP2)",
+        "11": "Grease(Mobilux EP2)"
       }
     }
   }
