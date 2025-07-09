@@ -1,0 +1,43 @@
+SSH is available within your kenventory hub for changing wifi credentials,
+
+0. Connect the rhaspberry pi to another computer on the same network switch
+
+0.5. Open terminal command or command prompt and type 
+	- ssh -v kenventory@10.0.0.199
+	- [ENTER]
+	- [RPI Password]
+	- [ENTER]
+
+1. Open the supplicant file 
+
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+
+2. Add or update your network block at the bottom:
+
+
+network={
+    ssid="YourCustomerSSID"
+    psk="TheirPasswordHere"
+    key_mgmt=WPA-PSK
+}
+
+
+3. Save and exit (Ctrl+O, [ENTER], Ctrl+X).
+
+
+4. Restart the Wi-Fi service so it picks up the new creds:
+
+
+sudo systemctl restart wpa_supplicant@wlan0
+sudo systemctl restart dhcpcd
+
+
+5. Verify you got an IP:
+
+
+ip addr show wlan0
+ping -c3 8.8.8.8
+
+
+That way—while in kiosk mode on the touchscreen—you can SSH in, update /etc/wpa_supplicant/wpa_supplicant.conf, 
+restart networking, and have the Pi join the new Wi-Fi without ever removing the SD card.
